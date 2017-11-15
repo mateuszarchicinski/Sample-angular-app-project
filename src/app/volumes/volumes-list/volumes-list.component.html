@@ -1,0 +1,3 @@
+<div class="btn-group" role="group" aria-label="These buttons allow you to select a volume">
+  <button type="button" class="btn btn-primary" *ngFor="let volume of volumes" (click)="setCurrVolume(volume)" [ngClass]="{'active': currVolume === volume}">{{ volume.id }}</button>
+</div>
