@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, OnChanges, ChangeDetectorRef, Input, Output, EventEmitter } from '@angular/core';
 import { Directory } from './directory.model';
 
 @Component({
@@ -6,7 +6,7 @@ import { Directory } from './directory.model';
   templateUrl: './volume-structure-directory.component.html',
   styleUrls: ['./volume-structure-directory.component.css']
 })
-export class VolumeStructureDirectoryComponent implements OnInit, OnChanges {
+export class VolumeStructureDirectoryComponent implements OnChanges {
   @Input() public directory: Directory;
   @Output() public directorySize = new EventEmitter<number>();
   public isOpened = false;
@@ -24,9 +24,7 @@ export class VolumeStructureDirectoryComponent implements OnInit, OnChanges {
     this.directorySize.emit(this.directory.size);
   }
 
-  ngOnInit() {}
-
-  ngOnChanges() {
+  ngOnChanges() { // To prevent these issue ---> https://github.com/angular/angular/issues/17572
     this.cdr.detectChanges();
   }
 }

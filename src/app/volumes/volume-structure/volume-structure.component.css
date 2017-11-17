@@ -1,9 +1,7 @@
 .volume-structure {
+  background-color: #fff;
   padding: 25px;
+  padding-left: 15px;
   border: 1px solid #eee;
   margin-top: -1px;
-}
-
-.volume-structure-alert {
-  margin-top: 10px;
 }

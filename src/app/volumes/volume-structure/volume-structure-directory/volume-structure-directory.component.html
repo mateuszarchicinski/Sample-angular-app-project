@@ -1,7 +1,6 @@
 <div class="directory" (click)="toggle($event)">
   <span [ngClass]="{'glyphicon-folder-close': !isOpened, 'glyphicon-folder-open': isOpened}" aria-hidden="true" class="glyphicon directory-icon"></span>
-  <span class="directory-name">{{ directory.name }}</span>
+  <span class="directory-name">{{ directory.name.replace('-', ' ') }}</span>
   <span class="pull-right directory-size">{{ directory.size !== 0 ? this.directory.size : '' }}</span>
-  <!--  <app-volume-structure-branch *ngIf="isOpened && directory.structure" (branchSize)="setDirSize($event)" [structure]="directory.structure"></app-volume-structure-branch>-->
   <app-volume-structure-branch [ngClass]="{'hide': !isOpened}" (branchSize)="setDirSize($event)" [structure]="directory.structure"></app-volume-structure-branch>
 </div>

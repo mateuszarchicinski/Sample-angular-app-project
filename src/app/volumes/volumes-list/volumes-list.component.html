@@ -1,3 +1,8 @@
+<app-alert [config]="alertConfigVList"></app-alert>
+<div *ngIf="!currVolume && !alertConfigVList" role="alert" class="alert alert-info volumes-alert">
+  Volume structure data is not available. Please select your volume space!
+</div>
+<app-alert [config]="alertConfigVStructure"></app-alert>
 <ul class="volumes__list">
   <li *ngFor="let volume of volumes">
     <div [ngClass]="{'active': currVolume === volume}" class="volumes-item">

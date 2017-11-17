@@ -1,5 +1,9 @@
 .branch {
   list-style: none;
-  padding: 0 0 0 15px;
+  padding: 0;
   margin: 0;
+}
+
+.branch > li {
+  padding-left: 15px;
 }

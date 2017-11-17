@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-
 import { environment } from '../../environments/environment';
 import { Volume } from '../volumes/volume.model';
 
@@ -8,37 +7,30 @@ import { Volume } from '../volumes/volume.model';
 export class DataStorageService {
   constructor(private http: Http) {}
 
-  createURI(type: string, param: string) {
-    let uri = `/api${param}`;
+  private createURI(urlPath: string) {
+    let uri = `/api${urlPath}`;
 
     if (!environment.production) {
-      let host;
-
-      if (type === 'volumes-list') {
-        host = 'https://volumes-list.firebaseio.com';
-      } else if (type === 'volume-structure') {
-        host = 'https://volume-structure-41b8e.firebaseio.com';
-      }
-
-      uri = `${host}${uri}.json`;
+      uri = `https://www.mateusz-archicinski.pl${uri}`;
     }
 
     return uri;
   }
 
-  getVolumes(callback) {
-    this.http.get(this.createURI('volumes-list', '/volumes')).subscribe((response: Response) => {
-      const volumes: Volume[] = response.json();
-
-      callback(volumes);
+  // This solution with callbacks probably is not the best way :)
+  private getResources(urlPath: string, sCallback, eCallback) {
+    this.http.get(this.createURI(urlPath)).subscribe((response: Response) => {
+      sCallback(response);
+    }, (response: Response) => {
+      eCallback(response);
     });
   }
 
-  getVolumeStructure(id: string, callback) {
-    this.http.get(this.createURI('volume-structure', `/volumes/${id}`)).subscribe((response: Response) => {
-      const volumeStructure: object = response.json();
+  getVolumes(sCallback, eCallback) {
+    this.getResources('/volumes', sCallback, eCallback);
+  }
 
-      callback(volumeStructure);
-    });
+  getVolumeStructure(id: string, sCallback, eCallback) {
+    this.getResources(`/volumes/${id}`, sCallback, eCallback);
   }
 }

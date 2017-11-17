@@ -1,0 +1,15 @@
+.file {
+  cursor: pointer;
+}
+
+.file:hover {
+  background-color: #fff;
+}
+
+.file-icon {
+  margin-right: 2px;
+}
+
+.file-name {
+  text-transform: capitalize;
+}

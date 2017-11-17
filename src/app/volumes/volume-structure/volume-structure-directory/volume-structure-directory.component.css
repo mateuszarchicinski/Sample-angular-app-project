@@ -1,0 +1,15 @@
+.directory {
+  cursor: pointer;
+}
+
+.directory:hover {
+  background-color: #fafafa;
+}
+
+.directory-icon {
+  margin-right: 2px;
+}
+
+.directory-name {
+  text-transform: capitalize;
+}

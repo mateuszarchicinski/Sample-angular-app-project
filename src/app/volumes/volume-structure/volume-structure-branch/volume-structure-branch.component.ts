@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
 import { Directory } from '../volume-structure-directory/directory.model';
 import { File } from '../volume-structure-file/file.model';
 
@@ -7,7 +7,7 @@ import { File } from '../volume-structure-file/file.model';
   templateUrl: './volume-structure-branch.component.html',
   styleUrls: ['./volume-structure-branch.component.css']
 })
-export class VolumeStructureBranchComponent implements OnInit, OnChanges {
+export class VolumeStructureBranchComponent implements OnChanges {
   @Input() public structure: object;
   @Output() public branchSize = new EventEmitter<number>();
   public directories: Directory[] = [];
@@ -20,8 +20,6 @@ export class VolumeStructureBranchComponent implements OnInit, OnChanges {
     this.currBranchSize += size;
     this.branchSize.emit(this.currBranchSize);
   }
-
-  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (!changes.structure) {
