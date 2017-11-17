@@ -1,3 +1,6 @@
-<p>
-  volume-structure works!
-</p>
+<div *ngIf="volumeStructure" class="volume-structure">
+  <app-volume-structure-branch [structure]="volumeStructure"></app-volume-structure-branch>
+</div>
+<div *ngIf="!volumeStructure" role="alert" class="alert alert-info volume-structure-alert">
+  Volume structure data is not available. First select your volume space!
+</div>

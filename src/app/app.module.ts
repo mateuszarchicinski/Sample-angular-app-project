@@ -1,5 +1,6 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { VolumesComponent } from './volumes/volumes.component';
@@ -9,6 +10,12 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SectionComponent } from './section/section.component';
 
+import { DataStorageService } from './shared/data-storage.service';
+
+import { VolumeStructureBranchComponent } from './volumes/volume-structure/volume-structure-branch/volume-structure-branch.component';
+import { VolumeStructureDirectoryComponent } from './volumes/volume-structure/volume-structure-directory/volume-structure-directory.component';
+import { VolumeStructureFileComponent } from './volumes/volume-structure/volume-structure-file/volume-structure-file.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,12 +24,20 @@ import { SectionComponent } from './section/section.component';
     VolumeStructureComponent,
     HeaderComponent,
     FooterComponent,
-    SectionComponent
+    SectionComponent,
+    VolumeStructureBranchComponent,
+    VolumeStructureDirectoryComponent,
+    VolumeStructureFileComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    DataStorageService
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
-export class AppModule { }
+export class AppModule {}

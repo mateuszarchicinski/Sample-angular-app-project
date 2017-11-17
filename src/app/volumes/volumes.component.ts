@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Volume } from './volume.model';
 
 @Component({
   selector: 'app-volumes',
@@ -7,11 +6,13 @@ import { Volume } from './volume.model';
   styleUrls: ['./volumes.component.css']
 })
 export class VolumesComponent implements OnInit {
-  public currVolume: Volume;
+  public volumeStructure: object;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
+  onVolumeSelected(vStructure) {
+    this.volumeStructure = vStructure;
   }
 
+  ngOnInit() {}
 }

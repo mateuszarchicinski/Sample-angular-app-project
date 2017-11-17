@@ -1,0 +1,48 @@
+.volumes__list {
+  list-style: none;
+  font-size: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.volumes__list > li {
+  display: inline-block;
+}
+
+.volumes-item {
+  min-width: 185x;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 2px;
+  border: 1px solid #eee;
+  margin: 0 15px 10px 0;
+}
+
+.volumes-item.active {
+  padding-bottom: 35px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-color: transparent;
+  margin-bottom: 0;
+}
+
+.volumes-item-icon {
+  width: 45px;
+  height: 45px;
+  background-color: #fff;
+  display: block;
+  border-radius: 50%;
+  box-shadow: 0 0 8px 0 rgba(0, 0 , 0, 0.15);
+  margin: 0 auto;
+}
+
+.volumes-item-title {
+  font-size: 18px;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.volumes-item-button {
+  display: block;
+  margin: 15px auto 0;
+}

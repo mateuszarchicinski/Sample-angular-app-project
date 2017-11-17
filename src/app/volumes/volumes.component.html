@@ -1,2 +1,2 @@
-<app-volumes-list></app-volumes-list>
-<app-volume-structure></app-volume-structure>
+<app-volumes-list (volumeSelected)="onVolumeSelected($event)"></app-volumes-list>
+<app-volume-structure [volumeStructure]="volumeStructure"></app-volume-structure>

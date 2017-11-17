@@ -1,3 +1,11 @@
-<div class="btn-group" role="group" aria-label="These buttons allow you to select a volume">
-  <button type="button" class="btn btn-primary" *ngFor="let volume of volumes" (click)="setCurrVolume(volume)" [ngClass]="{'active': currVolume === volume}">{{ volume.id }}</button>
-</div>
+<ul class="volumes__list">
+  <li *ngFor="let volume of volumes">
+    <div [ngClass]="{'active': currVolume === volume}" class="volumes-item">
+      <span [ngStyle]="{backgroundColor: volume.color}" aria-hidden="true" class="volumes-item-icon"></span>
+      <h3 class="volumes-item-title">
+        {{ volume.id.replace('-', ' ') }}
+      </h3>
+      <button type="button" class="btn btn-primary volumes-item-button" (click)="setCurrVolume(volume)">Open</button>
+    </div>
+  </li>
+</ul>

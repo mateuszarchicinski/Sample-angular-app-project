@@ -1,0 +1,8 @@
+<ul class="branch">
+  <li *ngFor="let directory of directories">
+    <app-volume-structure-directory (directorySize)="upBranchSize($event)" [directory]="directory"></app-volume-structure-directory>
+  </li>
+  <li *ngFor="let file of files">
+    <app-volume-structure-file (fileSize)="upBranchSize($event)" [file]="file"></app-volume-structure-file>
+  </li>
+</ul>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { DataStorageService } from '../../shared/data-storage.service';
 import { Volume } from '../volume.model';
 
 @Component({
@@ -7,31 +8,30 @@ import { Volume } from '../volume.model';
   styleUrls: ['./volumes-list.component.css']
 })
 export class VolumesListComponent implements OnInit {
-  public volumes: Volume[] = [
-    {
-      id: 'volume-1',
-      color: 'red'
-    },
-    {
-      id: 'volume-2',
-      color: 'green'
-    },
-    {
-      id: 'volume-3',
-      color: 'blue'
-    }
-  ];
+  @Output() public volumeSelected = new EventEmitter<object>();
+  public volumes: Volume[];
   public currVolume: Volume;
 
-  constructor() {}
+  constructor(private dataStorageService: DataStorageService) {}
 
   setCurrVolume(obj) {
-    console.log(obj);
-    
-    this.currVolume = obj;
+    if (this.currVolume === obj) {
+      return;
+    }
+
+    this.dataStorageService.getVolumeStructure(obj.id, (volumeStructure) => {
+      if (!volumeStructure) {
+        return;
+      }
+
+      this.currVolume = obj;
+      this.volumeSelected.emit(volumeStructure);
+    });
   }
 
   ngOnInit() {
+    this.dataStorageService.getVolumes((volumes) => {
+      this.volumes = volumes;
+    });
   }
-
 }
