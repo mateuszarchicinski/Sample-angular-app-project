@@ -11,7 +11,7 @@ export class DataStorageService {
     let uri = `/api${urlPath}`;
 
     if (!environment.production) {
-      uri = `https://www.mateusz-archicinski.pl${uri}`;
+      uri = `https://www.dev.mateusz-archicinski.pl${uri}`;
     }
 
     return uri;

@@ -12,10 +12,17 @@ export class VolumesListComponent implements OnInit {
   @Output() public volumeSelected = new EventEmitter<object>();
   public volumes: Volume[];
   public currVolume: Volume;
-  public alertConfigVList: Alert;
-  public alertConfigVStructure: Alert;
+  public alertVList: Alert;
+  public alertVStructure: Alert;
 
   constructor(private dataStorageService: DataStorageService) {}
+
+  getVolumes() {
+    this.dataStorageService.getVolumes((sRes) => {
+      this.alertVList = null;
+      this.volumes = sRes.json();
+    }, this.handleError('alertVList'));
+  }
 
   setCurrVolume(volume: Volume) {
     if (this.currVolume === volume) {
@@ -23,20 +30,21 @@ export class VolumesListComponent implements OnInit {
     }
 
     this.dataStorageService.getVolumeStructure(volume.id, (sRes) => {
-      this.alertConfigVStructure = null;
+      this.alertVStructure = null;
       this.currVolume = volume;
       this.volumeSelected.emit(sRes.json());
-    }, (eRes) => {
-      this.alertConfigVStructure = new Alert(eRes.status > 403 ? 'danger' : 'warning', `Response Status Code: ${eRes.status}, Response Message: ${eRes.json().message}`);
-    });
+    }, this.handleError('alertVStructure'));
+  }
+
+  handleError(type: string) {
+    return (eRes) => {
+      const err = eRes.json().error;
+
+      this[type] = new Alert(eRes.status > 403 ? 'danger' : 'warning', `Response Status Code: ${eRes.status} Response Message: ${err.message}`);
+    };
   }
 
   ngOnInit() {
-    this.dataStorageService.getVolumes((sRes) => {
-      this.alertConfigVList = null;
-      this.volumes = sRes.json();
-    }, (eRes) => {
-       this.alertConfigVList = new Alert(eRes.status > 403 ? 'danger' : 'warning', `Response Status Code: ${eRes.status}, Response Message: ${eRes.json().message}`);
-    });
+    this.getVolumes();
   }
 }

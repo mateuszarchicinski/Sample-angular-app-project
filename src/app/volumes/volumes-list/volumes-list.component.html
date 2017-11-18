@@ -1,8 +1,11 @@
-<app-alert [config]="alertConfigVList"></app-alert>
-<div *ngIf="!currVolume && !alertConfigVList" role="alert" class="alert alert-info volumes-alert">
+<button *ngIf="!volumes" (click)="getVolumes()" type="button" class="btn btn-info btn-lg">
+  <span aria-hidden="true" class="glyphicon glyphicon-refresh"></span> Refresh
+</button>
+<app-alert [config]="alertVList"></app-alert>
+<div *ngIf="!alertConfigVList && volumes && !currVolume" role="alert" class="alert alert-info volumes-alert">
   Volume structure data is not available. Please select your volume space!
 </div>
-<app-alert [config]="alertConfigVStructure"></app-alert>
+<app-alert [config]="alertVStructure"></app-alert>
 <ul class="volumes__list">
   <li *ngFor="let volume of volumes">
     <div [ngClass]="{'active': currVolume === volume}" class="volumes-item">
@@ -10,7 +13,7 @@
       <h3 class="volumes-item-title">
         {{ volume.id.replace('-', ' ') }}
       </h3>
-      <button type="button" class="btn btn-primary volumes-item-button" (click)="setCurrVolume(volume)">Open</button>
+      <button (click)="setCurrVolume(volume)" type="button" class="btn btn-primary volumes-item-button">Open</button>
     </div>
   </li>
 </ul>
