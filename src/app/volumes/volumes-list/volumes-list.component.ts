@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { DataStorageService } from '../../shared/data-storage.service';
 import { Volume } from '../volume.model';
-import { Alert } from '../../alert/alert.model';
+import { AlertConfig } from '../../alert/alert-config.model';
 
 @Component({
   selector: 'app-volumes-list',
@@ -12,16 +12,14 @@ export class VolumesListComponent implements OnInit {
   @Output() public volumeSelected = new EventEmitter<object>();
   public volumes: Volume[];
   public currVolume: Volume;
-  public alertVList: Alert;
-  public alertVStructure: Alert;
+  public alertConfig: AlertConfig;
 
   constructor(private dataStorageService: DataStorageService) {}
 
   getVolumes() {
-    this.dataStorageService.getVolumes((sRes) => {
-      this.alertVList = null;
+    this.dataStorageService.getVolumes(this.handleSuccess((sRes) => {
       this.volumes = sRes.json();
-    }, this.handleError('alertVList'));
+    }), this.handleError());
   }
 
   setCurrVolume(volume: Volume) {
@@ -29,18 +27,22 @@ export class VolumesListComponent implements OnInit {
       return;
     }
 
-    this.dataStorageService.getVolumeStructure(volume.id, (sRes) => {
-      this.alertVStructure = null;
+    this.dataStorageService.getVolumeStructure(volume.id, this.handleSuccess((sRes) => {
       this.currVolume = volume;
       this.volumeSelected.emit(sRes.json());
-    }, this.handleError('alertVStructure'));
+    }), this.handleError());
   }
 
-  handleError(type: string) {
-    return (eRes) => {
-      const err = eRes.json().error;
+  handleSuccess(callback) {
+    return (sRes) => {
+      this.alertConfig = null;
+      callback(sRes);
+    };
+  }
 
-      this[type] = new Alert(eRes.status > 403 ? 'danger' : 'warning', `Response Status Code: ${eRes.status} Response Message: ${err.message}`);
+  handleError() {
+    return (eRes) => {
+      this.alertConfig = new AlertConfig(eRes.status > 403 ? 'danger' : 'warning', `Response Status Code: ${eRes.status} Response Message: ${eRes.json().error.message}`);
     };
   }
 

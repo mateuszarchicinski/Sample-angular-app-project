@@ -1,3 +1,3 @@
-export class Alert {
+export class AlertConfig {
   constructor(public type: string, public message: string) {}
 }

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Alert } from './alert.model';
+import { AlertConfig } from './alert-config.model';
 
 @Component({
   selector: 'app-alert',
@@ -7,7 +7,7 @@ import { Alert } from './alert.model';
   styleUrls: ['./alert.component.css']
 })
 export class AlertComponent {
-  @Input() public config: Alert;
+  @Input() public config: AlertConfig;
 
   constructor() {}
 }
